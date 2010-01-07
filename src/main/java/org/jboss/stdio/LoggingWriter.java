@@ -38,11 +38,20 @@ public final class LoggingWriter extends AbstractLoggingWriter {
      * Construct a new instance.
      *
      * @param category the log category to use
+     * @param levelName the name of the level at which to log messages
+     */
+    public LoggingWriter(final String category, final String levelName) {
+        this(category, Level.parse(levelName));
+    }
+
+    /**
+     * Construct a new instance.
+     *
+     * @param category the log category to use
      * @param level the level at which to log messages
      */
     public LoggingWriter(final String category, final Level level) {
-        this.level = level;
-        log = Logger.getLogger(category);
+        this(Logger.getLogger(category), level);
     }
 
     /**
