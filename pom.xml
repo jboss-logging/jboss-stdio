@@ -93,12 +93,6 @@
                     </execution>
                 </executions>
                 <configuration>
-                    <taglet>org.jboss.remoting3.taglet.RemotingTypeTaglet</taglet>
-                    <tagletArtifact>
-                        <groupId>org.jboss.remoting</groupId>
-                        <artifactId>jboss-remoting-taglet</artifactId>
-                        <version>${version}</version>
-                    </tagletArtifact>
                     <doclet>net.gleamynode.apiviz.APIviz</doclet>
                     <docletArtifact>
                         <groupId>org.jboss.apiviz</groupId>
