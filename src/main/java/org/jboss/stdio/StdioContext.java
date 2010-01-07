@@ -200,7 +200,7 @@ public final class StdioContext {
     private static abstract class DelegatingPrintStream extends PrintStream {
 
         protected DelegatingPrintStream() {
-            super((OutputStream) null);
+            super(NullOutputStream.getInstance());
         }
 
         abstract PrintStream getDelegate();
