@@ -341,8 +341,8 @@ public final class StdioContext {
             getDelegate().close();
         }
 
-        public void mark(final int readlimit) {
-            getDelegate().mark(readlimit);
+        public void mark(final int readLimit) {
+            getDelegate().mark(readLimit);
         }
 
         public void reset() throws IOException {
