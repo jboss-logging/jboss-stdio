@@ -34,7 +34,7 @@ import java.nio.CharBuffer;
 /**
  * An output stream which decodes into a writer.
  */
-public final class WriterOutputStream extends OutputStream {
+public class WriterOutputStream extends OutputStream {
 
     private final Writer writer;
     private final CharsetDecoder decoder;
