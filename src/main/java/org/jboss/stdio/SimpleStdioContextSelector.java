@@ -44,4 +44,13 @@ public final class SimpleStdioContextSelector implements StdioContextSelector {
     public StdioContext getStdioContext() {
         return context;
     }
+
+    /**
+     * Attempt to install this context selector as the current one.
+     *
+     * @see StdioContext#setStdioContextSelector(StdioContextSelector)
+     */
+    public void install() {
+        StdioContext.setStdioContextSelector(this);
+    }
 }

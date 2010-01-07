@@ -166,7 +166,14 @@ public final class StdioContext {
         state.set(State.UNINSTALLED);
     }
 
-    public static void setStdioContextSelector(final StdioContextSelector stdioContextSelector) {
+    /**
+     * Set the standard I/O context selector.  You must have the {@code setStdioContextSelector} {@link RuntimePermission} in
+     * order to invoke this method.
+     *
+     * @param stdioContextSelector the selector to use
+     * @throws SecurityException if the caller does not have the {@code installStdioContextSelector} {@link RuntimePermission}
+     */
+    public static void setStdioContextSelector(final StdioContextSelector stdioContextSelector) throws SecurityException {
         if (stdioContextSelector == null) {
             throw new NullPointerException("stdioContextSelector is null");
         }
