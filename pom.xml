@@ -26,10 +26,14 @@
 
     <modelVersion>4.0.0</modelVersion>
 
+    <properties>
+        <version.jboss.stdio>1.0.0.CR1</version.jboss.stdio>
+    </properties>
+
     <groupId>org.jboss.stdio</groupId>
     <artifactId>jboss-stdio</artifactId>
     <packaging>jar</packaging>
-    <version>1.0.0.CR1</version>
+    <version>${version.jboss.stdio}</version>
     <dependencies/>
     <build>
         <plugins>
@@ -101,9 +105,9 @@
                         <artifactId>apiviz</artifactId>
                         <version>1.3.0.GA</version>
                     </docletArtifact>
-                    <doctitle><![CDATA[JBoss STDIO 1.0.0.CR1]]></doctitle>
-                    <header><![CDATA[JBoss STDIO 1.0.0.CR1]]></header>
-                    <footer><![CDATA[JBoss STDIO 1.0.0.CR1]]></footer>
+                    <doctitle><![CDATA[JBoss STDIO ${version.jboss.stdio}]]></doctitle>
+                    <header><![CDATA[JBoss STDIO ${version.jboss.stdio}]]></header>
+                    <footer><![CDATA[JBoss STDIO ${version.jboss.stdio}]]></footer>
                     <bottom><![CDATA[<i>Copyright &#169; 2010 JBoss, a division of Red Hat, Inc.</i>]]></bottom>
                     <links>
                         <link>http://java.sun.com/javase/6/docs/</link>
