@@ -77,6 +77,19 @@ public final class StdioContext {
     }
 
     /**
+     * Create a console I/O context.  The given output streams are wrapped in {@code PrintStream} instances.
+     *
+     * @param in the input stream for this context
+     * @param out the output stream for this context
+     * @param err the error stream for this context
+     * @return the new context
+     * @throws SecurityException if the caller does not have the {@code createStdioContext} {@link RuntimePermission}
+     */
+    public static StdioContext create(final InputStream in, final OutputStream out, final OutputStream err) throws SecurityException {
+        return create(in, new PrintStream(out), new PrintStream(err));
+    }
+
+    /**
      * Get the current console I/O context.
      *
      * @return the current context
