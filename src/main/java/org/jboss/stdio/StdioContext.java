@@ -112,11 +112,7 @@ public final class StdioContext {
         return err;
     }
 
-    private static volatile StdioContextSelector stdioContextSelector = new StdioContextSelector() {
-        public StdioContext getStdioContext() {
-            return SYSTEM_STDIO_CONTEXT;
-        }
-    };
+    private static volatile StdioContextSelector stdioContextSelector = new SimpleStdioContextSelector(SYSTEM_STDIO_CONTEXT);
 
     /**
      * Install the StdioContext streams.
