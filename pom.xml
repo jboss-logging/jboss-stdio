@@ -104,7 +104,7 @@
                     <footer><![CDATA[JBoss STDIO ${version.jboss.stdio}]]></footer>
                     <bottom><![CDATA[<i>Copyright &#169; 2010 JBoss, a division of Red Hat, Inc.</i>]]></bottom>
                     <links>
-                        <link>http://java.sun.com/javase/6/docs/</link>
+                        <link>http://java.sun.com/javase/6/docs/api/</link>
                     </links>
                 </configuration>
             </plugin>
