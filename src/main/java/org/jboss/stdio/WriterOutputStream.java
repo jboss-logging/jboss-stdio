@@ -99,7 +99,8 @@ public class WriterOutputStream extends OutputStream {
         synchronized (decoder) {
             for (;;) {
                 final ByteBuffer inputBuffer = this.inputBuffer;
-                int cnt = Math.min(inputBuffer.remaining(), len);
+                final int rem = inputBuffer.remaining();
+                final int cnt = rem <= len ? rem : len;
                 inputBuffer.put(b, off, cnt);
                 len -= cnt;
                 off += cnt;
