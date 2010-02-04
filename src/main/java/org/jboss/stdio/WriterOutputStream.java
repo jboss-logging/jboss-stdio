@@ -134,6 +134,7 @@ public class WriterOutputStream extends OutputStream {
                     }
                 } else if (coderResult.isUnderflow()) {
                     inputBuffer.compact();
+                    writer.flush();
                     return;
                 }
             }
