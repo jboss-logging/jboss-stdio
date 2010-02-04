@@ -27,7 +27,7 @@
     <modelVersion>4.0.0</modelVersion>
 
     <properties>
-        <version.jboss.stdio>1.0.0.CR3</version.jboss.stdio>
+        <version.jboss.stdio>1.0.0.CR4-SNAPSHOT</version.jboss.stdio>
     </properties>
 
     <groupId>org.jboss.stdio</groupId>
