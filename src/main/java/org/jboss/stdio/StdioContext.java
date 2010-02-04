@@ -86,7 +86,7 @@ public final class StdioContext {
      * @throws SecurityException if the caller does not have the {@code createStdioContext} {@link RuntimePermission}
      */
     public static StdioContext create(final InputStream in, final OutputStream out, final OutputStream err) throws SecurityException {
-        return create(in, new PrintStream(out), new PrintStream(err));
+        return create(in, new PrintStream(out, true), new PrintStream(err, true));
     }
 
     /**
