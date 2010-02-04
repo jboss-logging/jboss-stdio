@@ -33,6 +33,7 @@
     <groupId>org.jboss.stdio</groupId>
     <artifactId>jboss-stdio</artifactId>
     <packaging>jar</packaging>
+    <name>JBoss STDIO</name>
     <version>${version.jboss.stdio}</version>
     <dependencies/>
     <build>
