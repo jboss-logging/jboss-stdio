@@ -79,17 +79,7 @@ public abstract class AbstractLoggingWriter extends Writer {
 
     /** {@inheritDoc} */
     public void flush() throws IOException {
-        final java.util.logging.Logger logger = getLogger();
-        if (logger == null) {
-            return;
-        }
-        synchronized (buffer) {
-            if (buffer.length() > 0) {
-                buffer.append(" >>> FLUSH");
-                logger.log(getLevel(), buffer.toString());
-                buffer.setLength(0);
-            }
-        }
+        // ignore
     }
 
     /**

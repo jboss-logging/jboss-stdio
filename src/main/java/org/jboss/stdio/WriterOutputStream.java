@@ -30,6 +30,7 @@ import java.nio.charset.Charset;
 import java.nio.charset.CoderResult;
 import java.nio.ByteBuffer;
 import java.nio.CharBuffer;
+import java.nio.charset.CodingErrorAction;
 
 /**
  * An output stream which decodes into a writer.
@@ -79,6 +80,9 @@ public class WriterOutputStream extends OutputStream {
     public WriterOutputStream(final Writer writer, final CharsetDecoder decoder) {
         this.writer = writer;
         this.decoder = decoder;
+        decoder.onMalformedInput(CodingErrorAction.REPLACE);
+        decoder.onUnmappableCharacter(CodingErrorAction.REPLACE);
+        decoder.replaceWith("?");
         inputBuffer = ByteBuffer.allocate(256);
         outputBuffer = CharBuffer.allocate(256);
     }
@@ -89,7 +93,7 @@ public class WriterOutputStream extends OutputStream {
             final ByteBuffer inputBuffer = this.inputBuffer;
             inputBuffer.put((byte) b);
             if (! inputBuffer.hasRemaining()) {
-                flush();
+                finish();
             }
         }
     }
@@ -107,21 +111,23 @@ public class WriterOutputStream extends OutputStream {
                 if (len == 0) {
                     return;
                 }
-                flush();
+                finish();
             }
         }
     }
 
-    /** {@inheritDoc} */
-    public void flush() throws IOException {
-        synchronized (decoder) {
-            final CharBuffer outputBuffer = this.outputBuffer;
-            final ByteBuffer inputBuffer = this.inputBuffer;
-            inputBuffer.flip();
-            for (;;) {
+    private void finish() throws IOException {
+        final CharBuffer outputBuffer = this.outputBuffer;
+        final ByteBuffer inputBuffer = this.inputBuffer;
+        inputBuffer.flip();
+        try {
+            while (inputBuffer.hasRemaining()) {
                 final CoderResult coderResult = decoder.decode(inputBuffer, outputBuffer, false);
-                if (coderResult.isOverflow()) {
-                    outputBuffer.flip();
+                if (coderResult.isUnderflow() && outputBuffer.position() == 0) {
+                    return;
+                }
+                outputBuffer.flip();
+                try {
                     boolean ok = false;
                     try {
                         writer.write(outputBuffer.array(), outputBuffer.arrayOffset(), outputBuffer.remaining());
@@ -130,14 +136,20 @@ public class WriterOutputStream extends OutputStream {
                         if (! ok) {
                             inputBuffer.clear();
                         }
-                        outputBuffer.clear();
                     }
-                } else if (coderResult.isUnderflow()) {
-                    inputBuffer.compact();
-                    writer.flush();
-                    return;
+                } finally {
+                    outputBuffer.clear();
                 }
             }
+        } finally {
+            inputBuffer.compact();
+        }
+    }
+
+    public void flush() throws IOException {
+        synchronized (decoder) {
+            finish();
+            writer.flush();
         }
     }
 
