@@ -91,16 +91,20 @@ public class WriterOutputStream extends OutputStream {
     public void write(final int b) throws IOException {
         synchronized (decoder) {
             final ByteBuffer inputBuffer = this.inputBuffer;
-            inputBuffer.put((byte) b);
+
             if (! inputBuffer.hasRemaining()) {
                 finish();
             }
+            inputBuffer.put((byte) b);
         }
     }
 
     /** {@inheritDoc} */
     public void write(final byte[] b, int off, int len) throws IOException {
         synchronized (decoder) {
+            if (! inputBuffer.hasRemaining()) {
+                finish();
+            }
             for (;;) {
                 final ByteBuffer inputBuffer = this.inputBuffer;
                 final int rem = inputBuffer.remaining();
