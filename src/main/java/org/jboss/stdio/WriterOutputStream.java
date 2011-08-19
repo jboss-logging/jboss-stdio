@@ -89,6 +89,9 @@ public class WriterOutputStream extends OutputStream {
 
     /** {@inheritDoc} */
     public void write(final int b) throws IOException {
+        // Check for reentrancy
+        if (Thread.holdsLock(decoder)) return;
+
         synchronized (decoder) {
             final ByteBuffer inputBuffer = this.inputBuffer;
 
@@ -101,6 +104,9 @@ public class WriterOutputStream extends OutputStream {
 
     /** {@inheritDoc} */
     public void write(final byte[] b, int off, int len) throws IOException {
+        // Check for reentrancy
+        if (Thread.holdsLock(decoder)) return;
+
         synchronized (decoder) {
             if (! inputBuffer.hasRemaining()) {
                 finish();
@@ -151,6 +157,9 @@ public class WriterOutputStream extends OutputStream {
     }
 
     public void flush() throws IOException {
+        // Check for reentrancy
+        if (Thread.holdsLock(decoder)) return;
+
         synchronized (decoder) {
             finish();
             writer.flush();

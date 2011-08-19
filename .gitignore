@@ -1,1 +1,7 @@
 target
+
+#Ignore Intellij files
+*.iml
+*.iws
+*.ipr
+.idea/
