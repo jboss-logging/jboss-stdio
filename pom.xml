@@ -26,21 +26,16 @@
 
     <modelVersion>4.0.0</modelVersion>
 
-    <properties>
-        <version.jboss.stdio>1.0.1.GA-SNAPSHOT</version.jboss.stdio>
-        <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
-    </properties>
-
     <groupId>org.jboss.stdio</groupId>
     <artifactId>jboss-stdio</artifactId>
     <packaging>jar</packaging>
     <name>JBoss STDIO</name>
-    <version>${version.jboss.stdio}</version>
+    <version>1.0.1.GA</version>
 
     <parent>
         <groupId>org.jboss</groupId>
         <artifactId>jboss-parent</artifactId>
-        <version>6-beta-2</version>
+        <version>7</version>
     </parent>
 
     <dependencies/>
