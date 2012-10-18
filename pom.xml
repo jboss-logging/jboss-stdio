@@ -28,6 +28,7 @@
 
     <properties>
         <version.org.jboss.stdio.jboss-stdio>1.1.0.Beta1-SNAPSHOT</version.org.jboss.stdio.jboss-stdio>
+        <version.org.jboss.logging.jboss-logging>3.1.2.GA</version.org.jboss.logging.jboss-logging>
         <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
     </properties>
 
@@ -43,7 +44,14 @@
         <version>9</version>
     </parent>
 
-    <dependencies/>
+    <dependencies>
+        <dependency>
+            <groupId>org.jboss.logging</groupId>
+            <artifactId>jboss-logging</artifactId>
+            <version>${version.org.jboss.logging.jboss-logging}</version>
+            <optional>true</optional>
+        </dependency>
+    </dependencies>
     <build>
         <plugins>
             <plugin>

@@ -1,6 +1,6 @@
 /*
  * JBoss, Home of Professional Open Source.
- * Copyright 2009, Red Hat Middleware LLC, and individual contributors
+ * Copyright 2012, Red Hat, Inc., and individual contributors
  * as indicated by the @author tags. See the copyright.txt file in the
  * distribution for a full listing of individual contributors.
  *
@@ -22,28 +22,13 @@
 
 package org.jboss.stdio;
 
-import java.util.logging.Level;
-import java.util.logging.Logger;
+import org.jboss.logging.Logger;
+import org.jboss.logging.Logger.Level;
 
 /**
- * A writer which sends its data to a logger.
+ * A convenience {@link java.io.OutputStream} which writes to a {@link JBossLoggingWriter}.
  */
-public final class LoggingWriter extends AbstractLoggingWriter {
-
-    @SuppressWarnings({ "NonConstantLogger" })
-    private final Logger log;
-    private final Level level;
-    private final boolean doWrite;
-
-    /**
-     * Construct a new instance.
-     *
-     * @param category the log category to use
-     * @param levelName the name of the level at which to log messages
-     */
-    public LoggingWriter(final String category, final String levelName) {
-        this(category, Level.parse(levelName));
-    }
+public final class JBossLoggingOutputStream extends WriterOutputStream {
 
     /**
      * Construct a new instance.
@@ -51,7 +36,7 @@ public final class LoggingWriter extends AbstractLoggingWriter {
      * @param category the log category to use
      * @param level the level at which to log messages
      */
-    public LoggingWriter(final String category, final Level level) {
+    public JBossLoggingOutputStream(final String category, final Level level) {
         this(Logger.getLogger(category), level);
     }
 
@@ -61,19 +46,7 @@ public final class LoggingWriter extends AbstractLoggingWriter {
      * @param log the logger to use
      * @param level the level at which to log messages
      */
-    public LoggingWriter(final Logger log, final Level level) {
-        this.log = log;
-        this.level = level;
-        doWrite = log != null;
-    }
-
-    @Override
-    protected boolean doWrite() {
-        return doWrite;
-    }
-
-    @Override
-    protected void log(final String msg) {
-        log.log(level, msg);
+    public JBossLoggingOutputStream(final Logger log, final Level level) {
+        super(new JBossLoggingWriter(log, level));
     }
 }

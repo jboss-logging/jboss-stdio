@@ -22,8 +22,8 @@
 
 package org.jboss.stdio;
 
-import java.io.Writer;
 import java.io.IOException;
+import java.io.Writer;
 
 /**
  * Abstract base class for writers which log to a logger.
@@ -38,65 +38,59 @@ public abstract class AbstractLoggingWriter extends Writer {
     protected AbstractLoggingWriter() {
     }
 
-    /** {@inheritDoc} */
+    /**
+     * {@inheritDoc}
+     */
     @Override
     public void write(final int c) throws IOException {
-        final java.util.logging.Logger logger = getLogger();
-        if (logger == null) {
-            return;
-        }
-        synchronized (buffer) {
-            if (c == '\n') {
-                logger.log(getLevel(), buffer.toString());
-                buffer.setLength(0);
-            } else {
-                buffer.append((char) c);
-            }
-        }
-    }
-
-    /** {@inheritDoc} */
-    public void write(final char[] cbuf, final int off, final int len) throws IOException {
-        final java.util.logging.Logger logger = getLogger();
-        if (logger == null) {
-            return;
-        }
-        synchronized (buffer) {
-            int mark = 0;
-            int i;
-            for (i = 0; i < len; i++) {
-                final char c = cbuf[off + i];
+        if (doWrite()) {
+            synchronized (buffer) {
                 if (c == '\n') {
-                    buffer.append(cbuf, mark + off, i - mark);
-                    logger.log(getLevel(), buffer.toString());
+                    log(buffer.toString());
                     buffer.setLength(0);
-                    mark = i + 1;
+                } else {
+                    buffer.append((char) c);
                 }
             }
-            buffer.append(cbuf, mark + off, i - mark);
         }
     }
 
-    /** {@inheritDoc} */
+    /**
+     * {@inheritDoc}
+     */
+    public void write(final char[] cbuf, final int off, final int len) throws IOException {
+        if (doWrite()) {
+            synchronized (buffer) {
+                int mark = 0;
+                int i;
+                for (i = 0; i < len; i++) {
+                    final char c = cbuf[off + i];
+                    if (c == '\n') {
+                        buffer.append(cbuf, mark + off, i - mark);
+                        log(buffer.toString());
+                        buffer.setLength(0);
+                        mark = i + 1;
+                    }
+                }
+                buffer.append(cbuf, mark + off, i - mark);
+            }
+        }
+    }
+
+    protected abstract boolean doWrite();
+
+    protected abstract void log(String msg);
+
+    /**
+     * {@inheritDoc}
+     */
     public void flush() throws IOException {
         // ignore
     }
 
     /**
-     * Get the logger to use.
-     *
-     * @return the logger
+     * {@inheritDoc}
      */
-    protected abstract java.util.logging.Logger getLogger();
-
-    /**
-     * Get the level at which to log.
-     *
-     * @return the level
-     */
-    protected abstract java.util.logging.Level getLevel();
-
-    /** {@inheritDoc} */
     public void close() throws IOException {
         // ignore
     }
