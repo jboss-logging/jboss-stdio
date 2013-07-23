@@ -30,7 +30,7 @@
     <artifactId>jboss-stdio</artifactId>
     <packaging>jar</packaging>
     <name>JBoss STDIO</name>
-    <version>1.0.2.GA-SNAPSHOT</version>
+    <version>1.0.2.GA</version>
 
     <parent>
         <groupId>org.jboss</groupId>
