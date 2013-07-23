@@ -36,6 +36,8 @@ import java.util.concurrent.atomic.AtomicReference;
 public final class StdioContext {
     private static final StdioContext SYSTEM_STDIO_CONTEXT = new StdioContext(System.in, System.out, System.err);
 
+    private static final ThreadLocal<Boolean> entered = new ThreadLocal<Boolean>();
+
     private static final Permission CREATE_CONTEXT_PERMISSION = new RuntimePermission("createStdioContext", null);
     private static final Permission SET_CONTEXT_SELECTOR_PERMISSION = new RuntimePermission("setStdioContextSelector", null);
     private static final Permission INSTALL_PERMISSION = new RuntimePermission("installStdioContextSelector", null);
@@ -206,127 +208,369 @@ public final class StdioContext {
         abstract PrintStream getDelegate();
 
         public void flush() {
-            getDelegate().flush();
+            if (entered.get() != null) {
+                return;
+            }
+            try {
+                entered.set(Boolean.TRUE);
+                getDelegate().flush();
+            } finally {
+                entered.remove();
+            }
         }
 
         public void close() {
-            getDelegate().close();
+            if (entered.get() != null) {
+                return;
+            }
+            try {
+                entered.set(Boolean.TRUE);
+                getDelegate().close();
+            } finally {
+                entered.remove();
+            }
         }
 
         public boolean checkError() {
-            return getDelegate().checkError();
+            if (entered.get() != null) {
+                return false;
+            }
+            try {
+                entered.set(Boolean.TRUE);
+                return getDelegate().checkError();
+            } finally {
+                entered.remove();
+            }
         }
 
         public void write(final int b) {
-            getDelegate().write(b);
+            if (entered.get() != null) {
+                return;
+            }
+            try {
+                entered.set(Boolean.TRUE);
+                getDelegate().write(b);
+            } finally {
+                entered.remove();
+            }
         }
 
         public void write(final byte[] buf, final int off, final int len) {
-            getDelegate().write(buf, off, len);
+            if (entered.get() != null) {
+                return;
+            }
+            try {
+                entered.set(Boolean.TRUE);
+                getDelegate().write(buf, off, len);
+            } finally {
+                entered.remove();
+            }
         }
 
         public void print(final boolean b) {
-            getDelegate().print(b);
+            if (entered.get() != null) {
+                return;
+            }
+            try {
+                entered.set(Boolean.TRUE);
+                getDelegate().print(b);
+            } finally {
+                entered.remove();
+            }
         }
 
         public void print(final char c) {
-            getDelegate().print(c);
+            if (entered.get() != null) {
+                return;
+            }
+            try {
+                entered.set(Boolean.TRUE);
+                getDelegate().print(c);
+            } finally {
+                entered.remove();
+            }
         }
 
         public void print(final int i) {
-            getDelegate().print(i);
+            if (entered.get() != null) {
+                return;
+            }
+            try {
+                entered.set(Boolean.TRUE);
+                getDelegate().print(i);
+            } finally {
+                entered.remove();
+            }
         }
 
         public void print(final long l) {
-            getDelegate().print(l);
+            if (entered.get() != null) {
+                return;
+            }
+            try {
+                entered.set(Boolean.TRUE);
+                getDelegate().print(l);
+            } finally {
+                entered.remove();
+            }
         }
 
         public void print(final float f) {
-            getDelegate().print(f);
+            if (entered.get() != null) {
+                return;
+            }
+            try {
+                entered.set(Boolean.TRUE);
+                getDelegate().print(f);
+            } finally {
+                entered.remove();
+            }
         }
 
         public void print(final double d) {
-            getDelegate().print(d);
+            if (entered.get() != null) {
+                return;
+            }
+            try {
+                entered.set(Boolean.TRUE);
+                getDelegate().print(d);
+            } finally {
+                entered.remove();
+            }
         }
 
         public void print(final char[] s) {
-            getDelegate().print(s);
+            if (entered.get() != null) {
+                return;
+            }
+            try {
+                entered.set(Boolean.TRUE);
+                getDelegate().print(s);
+            } finally {
+                entered.remove();
+            }
         }
 
         public void print(final String s) {
-            getDelegate().print(s);
+            if (entered.get() != null) {
+                return;
+            }
+            try {
+                entered.set(Boolean.TRUE);
+                getDelegate().print(s);
+            } finally {
+                entered.remove();
+            }
         }
 
         public void print(final Object obj) {
-            getDelegate().print(obj);
+            if (entered.get() != null) {
+                return;
+            }
+            try {
+                entered.set(Boolean.TRUE);
+                getDelegate().print(obj);
+            } finally {
+                entered.remove();
+            }
         }
 
         public void println() {
-            getDelegate().println();
+            try {
+                entered.set(Boolean.TRUE);
+                getDelegate().println();
+            } finally {
+                entered.remove();
+            }
         }
 
         public void println(final boolean x) {
-            getDelegate().println(x);
+            try {
+                entered.set(Boolean.TRUE);
+                getDelegate().println(x);
+            } finally {
+                entered.remove();
+            }
         }
 
         public void println(final char x) {
-            getDelegate().println(x);
+            if (entered.get() != null) {
+                return;
+            }
+            try {
+                entered.set(Boolean.TRUE);
+                getDelegate().println(x);
+            } finally {
+                entered.remove();
+            }
         }
 
         public void println(final int x) {
-            getDelegate().println(x);
+            if (entered.get() != null) {
+                return;
+            }
+            try {
+                entered.set(Boolean.TRUE);
+                getDelegate().println(x);
+            } finally {
+                entered.remove();
+            }
         }
 
         public void println(final long x) {
-            getDelegate().println(x);
+            if (entered.get() != null) {
+                return;
+            }
+            try {
+                entered.set(Boolean.TRUE);
+                getDelegate().println(x);
+            } finally {
+                entered.remove();
+            }
         }
 
         public void println(final float x) {
-            getDelegate().println(x);
+            if (entered.get() != null) {
+                return;
+            }
+            try {
+                entered.set(Boolean.TRUE);
+                getDelegate().println(x);
+            } finally {
+                entered.remove();
+            }
         }
 
         public void println(final double x) {
-            getDelegate().println(x);
+            if (entered.get() != null) {
+                return;
+            }
+            try {
+                entered.set(Boolean.TRUE);
+                getDelegate().println(x);
+            } finally {
+                entered.remove();
+            }
         }
 
         public void println(final char[] x) {
-            getDelegate().println(x);
+            if (entered.get() != null) {
+                return;
+            }
+            try {
+                entered.set(Boolean.TRUE);
+                getDelegate().println(x);
+            } finally {
+                entered.remove();
+            }
         }
 
         public void println(final String x) {
-            getDelegate().println(x);
+            if (entered.get() != null) {
+                return;
+            }
+            try {
+                entered.set(Boolean.TRUE);
+                getDelegate().println(x);
+            } finally {
+                entered.remove();
+            }
         }
 
         public void println(final Object x) {
-            getDelegate().println(x);
+            if (entered.get() != null) {
+                return;
+            }
+            try {
+                entered.set(Boolean.TRUE);
+                getDelegate().println(x);
+            } finally {
+                entered.remove();
+            }
         }
 
         public PrintStream printf(final String format, final Object... args) {
-            return getDelegate().printf(format, args);
+            if (entered.get() != null) {
+                return this;
+            }
+            try {
+                entered.set(Boolean.TRUE);
+                return getDelegate().printf(format, args);
+            } finally {
+                entered.remove();
+            }
         }
 
         public PrintStream printf(final Locale l, final String format, final Object... args) {
-            return getDelegate().printf(l, format, args);
+            if (entered.get() != null) {
+                return this;
+            }
+            try {
+                entered.set(Boolean.TRUE);
+                return getDelegate().printf(l, format, args);
+            } finally {
+                entered.remove();
+            }
         }
 
         public PrintStream format(final String format, final Object... args) {
-            return getDelegate().format(format, args);
+            if (entered.get() != null) {
+                return this;
+            }
+            try {
+                entered.set(Boolean.TRUE);
+                return getDelegate().format(format, args);
+            } finally {
+                entered.remove();
+            }
         }
 
         public PrintStream format(final Locale l, final String format, final Object... args) {
-            return getDelegate().format(l, format, args);
+            if (entered.get() != null) {
+                return this;
+            }
+            try {
+                entered.set(Boolean.TRUE);
+                return getDelegate().format(l, format, args);
+            } finally {
+                entered.remove();
+            }
         }
 
         public PrintStream append(final CharSequence csq) {
-            return getDelegate().append(csq);
+            if (entered.get() != null) {
+                return this;
+            }
+            try {
+                entered.set(Boolean.TRUE);
+                return getDelegate().append(csq);
+            } finally {
+                entered.remove();
+            }
         }
 
         public PrintStream append(final CharSequence csq, final int start, final int end) {
-            return getDelegate().append(csq, start, end);
+            if (entered.get() != null) {
+                return this;
+            }
+            try {
+                entered.set(Boolean.TRUE);
+                return getDelegate().append(csq, start, end);
+            } finally {
+                entered.remove();
+            }
         }
 
         public PrintStream append(final char c) {
-            return getDelegate().append(c);
+            if (entered.get() != null) {
+                return this;
+            }
+            try {
+                entered.set(Boolean.TRUE);
+                return getDelegate().append(c);
+            } finally {
+                entered.remove();
+            }
         }
     }
 
