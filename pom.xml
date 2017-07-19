@@ -43,6 +43,14 @@
         <version>10</version>
     </parent>
 
+    <licenses>
+        <license>
+            <name>lgpl</name>
+            <url>http://repository.jboss.org/licenses/lgpl-2.1.txt</url>
+            <distribution>repo</distribution>
+        </license>
+    </licenses>
+
     <dependencies/>
     <build>
         <plugins>
