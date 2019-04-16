@@ -34,7 +34,7 @@
     <artifactId>jboss-stdio</artifactId>
     <packaging>jar</packaging>
     <name>JBoss STDIO</name>
-    <version>1.1.0.Beta1-SNAPSHOT</version>
+    <version>1.1.0.Final</version>
 
     <parent>
         <groupId>org.jboss</groupId>
