@@ -27,7 +27,6 @@
     <modelVersion>4.0.0</modelVersion>
 
     <properties>
-        <version.jboss.stdio>1.1.0.Beta1-SNAPSHOT</version.jboss.stdio>
         <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
     </properties>
 
@@ -35,7 +34,7 @@
     <artifactId>jboss-stdio</artifactId>
     <packaging>jar</packaging>
     <name>JBoss STDIO</name>
-    <version>${version.jboss.stdio}</version>
+    <version>1.1.0.Beta1-SNAPSHOT</version>
 
     <parent>
         <groupId>org.jboss</groupId>
@@ -57,9 +56,9 @@
             <plugin>
                 <artifactId>maven-javadoc-plugin</artifactId>
                 <configuration>
-                    <doctitle><![CDATA[JBoss STDIO ${version.jboss.stdio}]]></doctitle>
-                    <header><![CDATA[JBoss STDIO ${version.jboss.stdio}]]></header>
-                    <footer><![CDATA[JBoss STDIO ${version.jboss.stdio}]]></footer>
+                    <doctitle><![CDATA[JBoss STDIO ${project.version}]]></doctitle>
+                    <header><![CDATA[JBoss STDIO ${project.version}]]></header>
+                    <footer><![CDATA[JBoss STDIO ${project.version}]]></footer>
                     <bottom><![CDATA[<i>Copyright &#169; 2019 JBoss, a division of Red Hat, Inc.</i>]]></bottom>
                     <links>
                         <link>http://java.sun.com/javase/8/docs/api/</link>
