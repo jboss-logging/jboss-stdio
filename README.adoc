@@ -1,0 +1,33 @@
+= JBoss STDIO
+
+This project is a plugin to override standard IO streams and wrap them in a logger.
+
+== Usage
+
+=== Maven
+[source,xml]
+----
+<dependency>
+    <groupId>org.jboss.stdio</groupId>
+    <artifactId>jboss-stdio</artifactId>
+    <version>${version.org.jboss.jboss-stdio}</version>
+</dependency>
+----
+
+[source,java]
+----
+// Install JBoss Stdio
+StdioContext.install();
+// Create the context
+final StdioContext context = StdioContext.create(
+        new NullInputStream(),
+        new LoggingOutputStream(java.util.logging.Logger.getLogger("stdout"), java.util.logging.Level.INFO),
+        new LoggingOutputStream(java.util.logging.Logger.getLogger("stderr"), java.util.logging.Level.SEVERE)
+);
+// Register the created context
+StdioContext.setStdioContextSelector(new SimpleStdioContextSelector(context));
+----
+
+== Contributing
+
+See the link:CONTRIBUTING.adoc[contributing guide].
