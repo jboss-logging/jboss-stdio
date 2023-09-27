@@ -1,7 +1,22 @@
-target
+#Ignore Maven target folder
+target/
+.cache/
+
+#Ignore Eclipse files
+.settings/
+.classpath
+.project
 
 #Ignore Intellij files
 *.iml
 *.iws
 *.ipr
 .idea/
+
+#Ignore Mac files
+.DS_Store
+/core/target/
+/base/target/
+nb-configuration.xml
+/processor/target/
+/generator/target/

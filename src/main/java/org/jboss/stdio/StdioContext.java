@@ -1,31 +1,14 @@
 /*
- * JBoss, Home of Professional Open Source.
- * Copyright 2009, Red Hat Middleware LLC, and individual contributors
- * as indicated by the @author tags. See the copyright.txt file in the
- * distribution for a full listing of individual contributors.
- *
- * This is free software; you can redistribute it and/or modify it
- * under the terms of the GNU Lesser General Public License as
- * published by the Free Software Foundation; either version 2.1 of
- * the License, or (at your option) any later version.
- *
- * This software is distributed in the hope that it will be useful,
- * but WITHOUT ANY WARRANTY; without even the implied warranty of
- * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE. See the GNU
- * Lesser General Public License for more details.
- *
- * You should have received a copy of the GNU Lesser General Public
- * License along with this software; if not, write to the Free
- * Software Foundation, Inc., 51 Franklin St, Fifth Floor, Boston, MA
- * 02110-1301 USA, or see the FSF site: http://www.fsf.org.
+ * Copyright The JBoss Logging STDIO Authors
+ * SPDX-License-Identifier: Apache-2.0
  */
 
 package org.jboss.stdio;
 
+import java.io.IOException;
 import java.io.InputStream;
 import java.io.OutputStream;
 import java.io.PrintStream;
-import java.io.IOException;
 import java.security.Permission;
 import java.util.Locale;
 import java.util.concurrent.atomic.AtomicReference;
@@ -64,13 +47,14 @@ public final class StdioContext {
     /**
      * Create a console I/O context.
      *
-     * @param in the input stream for this context
+     * @param in  the input stream for this context
      * @param out the output stream for this context
      * @param err the error stream for this context
      * @return the new context
      * @throws SecurityException if the caller does not have the {@code createStdioContext} {@link RuntimePermission}
      */
-    public static StdioContext create(final InputStream in, final PrintStream out, final PrintStream err) throws SecurityException {
+    public static StdioContext create(final InputStream in, final PrintStream out, final PrintStream err)
+            throws SecurityException {
         final SecurityManager sm = System.getSecurityManager();
         if (sm != null) {
             sm.checkPermission(CREATE_CONTEXT_PERMISSION);
@@ -79,15 +63,16 @@ public final class StdioContext {
     }
 
     /**
-     * Create a console I/O context.  The given output streams are wrapped in {@code PrintStream} instances.
+     * Create a console I/O context. The given output streams are wrapped in {@code PrintStream} instances.
      *
-     * @param in the input stream for this context
+     * @param in  the input stream for this context
      * @param out the output stream for this context
      * @param err the error stream for this context
      * @return the new context
      * @throws SecurityException if the caller does not have the {@code createStdioContext} {@link RuntimePermission}
      */
-    public static StdioContext create(final InputStream in, final OutputStream out, final OutputStream err) throws SecurityException {
+    public static StdioContext create(final InputStream in, final OutputStream out, final OutputStream err)
+            throws SecurityException {
         return create(in, new PrintStream(out, true), new PrintStream(err, true));
     }
 
@@ -132,7 +117,8 @@ public final class StdioContext {
     /**
      * Install the StdioContext streams.
      *
-     * @throws SecurityException if the caller does not have the {@code installStdioContextSelector} {@link RuntimePermission}
+     * @throws SecurityException     if the caller does not have the {@code installStdioContextSelector}
+     *                               {@link RuntimePermission}
      * @throws IllegalStateException if the streams are already installed
      */
     public static void install() throws SecurityException, IllegalStateException {
@@ -140,7 +126,7 @@ public final class StdioContext {
         if (sm != null) {
             sm.checkPermission(INSTALL_PERMISSION);
         }
-        if (! state.compareAndSet(State.UNINSTALLED, State.INSTALLING)) {
+        if (!state.compareAndSet(State.UNINSTALLED, State.INSTALLING)) {
             throw new IllegalStateException("Already installed");
         }
         System.setOut(new DelegatingPrintStream() {
@@ -164,7 +150,8 @@ public final class StdioContext {
     /**
      * Uninstall the StdioContext streams.
      *
-     * @throws SecurityException if the caller does not have the {@code installStdioContextSelector} {@link RuntimePermission}
+     * @throws SecurityException     if the caller does not have the {@code installStdioContextSelector}
+     *                               {@link RuntimePermission}
      * @throws IllegalStateException if the streams are already uninstalled
      */
     public static void uninstall() throws SecurityException, IllegalStateException {
@@ -172,7 +159,7 @@ public final class StdioContext {
         if (sm != null) {
             sm.checkPermission(INSTALL_PERMISSION);
         }
-        if (! state.compareAndSet(State.INSTALLED, State.UNINSTALLING)) {
+        if (!state.compareAndSet(State.INSTALLED, State.UNINSTALLING)) {
             throw new IllegalStateException("Already uninstalled");
         }
         System.setOut(SYSTEM_STDIO_CONTEXT.out);
@@ -182,7 +169,7 @@ public final class StdioContext {
     }
 
     /**
-     * Set the standard I/O context selector.  You must have the {@code setStdioContextSelector} {@link RuntimePermission} in
+     * Set the standard I/O context selector. You must have the {@code setStdioContextSelector} {@link RuntimePermission} in
      * order to invoke this method.
      *
      * @param stdioContextSelector the selector to use
