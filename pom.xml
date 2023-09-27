@@ -9,9 +9,11 @@
 
     <modelVersion>4.0.0</modelVersion>
 
-    <properties>
-        <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
-    </properties>
+    <parent>
+        <groupId>org.jboss.logging</groupId>
+        <artifactId>logging-parent</artifactId>
+        <version>1.0.1.Final</version>
+    </parent>
 
     <groupId>org.jboss.stdio</groupId>
     <artifactId>jboss-stdio</artifactId>
@@ -19,11 +21,9 @@
     <name>JBoss STDIO</name>
     <version>2.0.0.Final-SNAPSHOT</version>
 
-    <parent>
-        <groupId>org.jboss</groupId>
-        <artifactId>jboss-parent</artifactId>
-        <version>34</version>
-    </parent>
+    <properties>
+        <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
+    </properties>
 
     <licenses>
         <license>
@@ -33,7 +33,15 @@
         </license>
     </licenses>
 
-    <dependencies/>
+
+    <scm child.scm.connection.inherit.append.path="false" child.scm.developerConnection.inherit.append.path="false"
+         child.scm.url.inherit.append.path="false">
+        <connection>scm:git:git://github.com/jboss-logging/jboss-stdio.git</connection>
+        <developerConnection>scm:git:git@github.com:jboss-logging/jboss-stdio.git</developerConnection>
+        <url>https://github.com/jboss-logging/jboss-stdio/tree/main/</url>
+        <tag>HEAD</tag>
+    </scm>
+
     <build>
         <plugins>
             <plugin>
@@ -42,9 +50,9 @@
                     <doctitle><![CDATA[JBoss STDIO ${project.version}]]></doctitle>
                     <header><![CDATA[JBoss STDIO ${project.version}]]></header>
                     <footer><![CDATA[JBoss STDIO ${project.version}]]></footer>
-                    <bottom><![CDATA[<i>Copyright &#169; 2019 JBoss, a division of Red Hat, Inc.</i>]]></bottom>
+                    <bottom><![CDATA[<i>Copyright &#169; JBoss, a division of Red Hat, Inc.</i>]]></bottom>
                     <links>
-                        <link>http://java.sun.com/javase/8/docs/api/</link>
+                        <link>https://docs.oracle.com/en/java/javase/11/docs/api/</link>
                     </links>
                 </configuration>
             </plugin>
