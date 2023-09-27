@@ -15,7 +15,7 @@ public final class LoggingOutputStream extends WriterOutputStream {
     /**
      * Construct a new instance.
      *
-     * @param category the log category to use
+     * @param category  the log category to use
      * @param levelName the name of the level at which to log messages
      */
     public LoggingOutputStream(final String category, final String levelName) {
@@ -26,7 +26,7 @@ public final class LoggingOutputStream extends WriterOutputStream {
      * Construct a new instance.
      *
      * @param category the log category to use
-     * @param level the level at which to log messages
+     * @param level    the level at which to log messages
      */
     public LoggingOutputStream(final String category, final Level level) {
         this(Logger.getLogger(category), level);
@@ -35,7 +35,7 @@ public final class LoggingOutputStream extends WriterOutputStream {
     /**
      * Construct a new instance.
      *
-     * @param log the logger to use
+     * @param log   the logger to use
      * @param level the level at which to log messages
      */
     public LoggingOutputStream(final Logger log, final Level level) {

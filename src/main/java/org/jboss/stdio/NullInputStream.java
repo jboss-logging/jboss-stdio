@@ -24,7 +24,7 @@ public final class NullInputStream extends InputStream {
     }
 
     /**
-     * Read a byte.  Always returns EOF.
+     * Read a byte. Always returns EOF.
      *
      * @return -1 always
      */

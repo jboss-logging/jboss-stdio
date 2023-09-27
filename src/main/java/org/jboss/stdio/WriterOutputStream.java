@@ -5,14 +5,14 @@
 
 package org.jboss.stdio;
 
-import java.io.OutputStream;
 import java.io.IOException;
+import java.io.OutputStream;
 import java.io.Writer;
-import java.nio.charset.CharsetDecoder;
-import java.nio.charset.Charset;
-import java.nio.charset.CoderResult;
 import java.nio.ByteBuffer;
 import java.nio.CharBuffer;
+import java.nio.charset.Charset;
+import java.nio.charset.CharsetDecoder;
+import java.nio.charset.CoderResult;
 import java.nio.charset.CodingErrorAction;
 
 /**
@@ -37,7 +37,7 @@ public class WriterOutputStream extends OutputStream {
     /**
      * Construct a new instance using the named charset.
      *
-     * @param writer the writer to write to
+     * @param writer      the writer to write to
      * @param charsetName the charset name
      */
     public WriterOutputStream(final Writer writer, final String charsetName) {
@@ -47,7 +47,7 @@ public class WriterOutputStream extends OutputStream {
     /**
      * Construct a new instance using the given charset.
      *
-     * @param writer the writer to write to
+     * @param writer  the writer to write to
      * @param charset the charset
      */
     public WriterOutputStream(final Writer writer, final Charset charset) {
@@ -57,7 +57,7 @@ public class WriterOutputStream extends OutputStream {
     /**
      * Construct a new instance using the given charset decoder.
      *
-     * @param writer the writer to write to
+     * @param writer  the writer to write to
      * @param decoder the charset decoder
      */
     public WriterOutputStream(final Writer writer, final CharsetDecoder decoder) {
@@ -73,12 +73,13 @@ public class WriterOutputStream extends OutputStream {
     /** {@inheritDoc} */
     public void write(final int b) throws IOException {
         // Check for reentrancy
-        if (Thread.holdsLock(decoder)) return;
+        if (Thread.holdsLock(decoder))
+            return;
 
         synchronized (decoder) {
             final ByteBuffer inputBuffer = this.inputBuffer;
 
-            if (! inputBuffer.hasRemaining()) {
+            if (!inputBuffer.hasRemaining()) {
                 finish();
             }
             inputBuffer.put((byte) b);
@@ -88,10 +89,11 @@ public class WriterOutputStream extends OutputStream {
     /** {@inheritDoc} */
     public void write(final byte[] b, int off, int len) throws IOException {
         // Check for reentrancy
-        if (Thread.holdsLock(decoder)) return;
+        if (Thread.holdsLock(decoder))
+            return;
 
         synchronized (decoder) {
-            if (! inputBuffer.hasRemaining()) {
+            if (!inputBuffer.hasRemaining()) {
                 finish();
             }
             for (;;) {
@@ -126,7 +128,7 @@ public class WriterOutputStream extends OutputStream {
                         writer.write(outputBuffer.array(), outputBuffer.arrayOffset(), outputBuffer.remaining());
                         ok = true;
                     } finally {
-                        if (! ok) {
+                        if (!ok) {
                             inputBuffer.clear();
                         }
                     }
@@ -141,7 +143,8 @@ public class WriterOutputStream extends OutputStream {
 
     public void flush() throws IOException {
         // Check for reentrancy
-        if (Thread.holdsLock(decoder)) return;
+        if (Thread.holdsLock(decoder))
+            return;
 
         synchronized (decoder) {
             finish();

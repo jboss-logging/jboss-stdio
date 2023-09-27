@@ -44,7 +44,7 @@ public final class NullOutputStream extends OutputStream {
     /**
      * Ignore the written bytes.
      *
-     * @param b ignored
+     * @param b   ignored
      * @param off ignored
      * @param len ignored
      */

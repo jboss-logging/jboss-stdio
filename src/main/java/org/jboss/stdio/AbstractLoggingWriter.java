@@ -5,8 +5,8 @@
 
 package org.jboss.stdio;
 
-import java.io.Writer;
 import java.io.IOException;
+import java.io.Writer;
 
 /**
  * Abstract base class for writers which log to a logger.
